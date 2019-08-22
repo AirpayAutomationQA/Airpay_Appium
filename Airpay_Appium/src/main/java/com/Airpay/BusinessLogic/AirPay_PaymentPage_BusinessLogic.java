@@ -16,6 +16,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.Airpay.InitialSetup.Driver_Setup;
 import com.Airpay.PageObject.AirPay_Payment_MA_Panel_PageObject;
 import com.Airpay.PageObject.Airpay_PaymentPage_PageObject;
 import com.Airpay.Reporting.Extent_Reporting;
@@ -23,20 +24,23 @@ import com.Airpay.TestData.Excel_Handling;
 import com.Airpay.Utilities.ElementAction;
 import com.Airpay.Utilities.Log;
 
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
+
 /**
  * This is Business Logic having the methods of login and verifying the fields.
  * @author psakole
  * 
  */	
 public class AirPay_PaymentPage_BusinessLogic extends Airpay_PaymentPage_PageObject {
-	public WebDriver driver;
+	public AppiumDriver<WebElement> driver;
 	public String TC_ID = "";
 	ElementAction Assert = new ElementAction();
 	//Log log = new Log();	
 	public AirPay_PaymentPage_BusinessLogic(WebDriver driver, String TC_ID)
 	{
 		Log.info("AirPay_payment_Mode_Wallet_BusinessLogic");
-		this.driver = driver;
+		this.driver = (AppiumDriver<WebElement>) driver;
 		this.TC_ID=TC_ID;
 		//log = new Log();
 	}
@@ -49,41 +53,66 @@ public class AirPay_PaymentPage_BusinessLogic extends Airpay_PaymentPage_PageObj
 	public void LocalHostDetailPage() throws Exception {
 		try{ 
 			Log.info("Navigating To Local Host page of Payment");
-			  if(Assert.isElementDisplay(driver, name))
-			  {
-			   Assert.inputText(driver, email, Excel_Handling.Get_Data(TC_ID, "BuyerMailID"), "Buyer Mail ID");
-			   Assert.inputText(driver, phone, Excel_Handling.Get_Data(TC_ID, "BuyerPhoneNumber"), "Buyer Phone Number");
-			   Assert.inputText(driver, name, Excel_Handling.Get_Data(TC_ID, "BuyerFirstName"), "Buyer First Name");
-			   Assert.inputText(driver, amount, Excel_Handling.Get_Data(TC_ID, "Amount"), "Amount");
-			   Extent_Reporting.Log_report_img("Directpayments required field filled", "Passed", driver);
-			   Assert.Clickbtn(driver, paybutton, "Pay Here");
-			   Assert.waitForPageToLoad(driver);
-			  
-			  }
-			  else {
-			if(Assert.isElementDisplay(driver, BuyerMailId))
+			driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+			MobileElement mobile_id = (MobileElement)driver.findElementByXPath(BuyerFirstName);
+			boolean isDisplayed = mobile_id.isDisplayed();
+
+			if(isDisplayed)
 			{ 
 				Log.debug("Local Host page");
-				Assert.inputText(driver, BuyerMailId, Excel_Handling.Get_Data(TC_ID, "BuyerMailID"), "Buyer Mail ID");
-				Assert.inputText(driver, BuyerPhoneNumber, Excel_Handling.Get_Data(TC_ID, "BuyerPhoneNumber"), "Buyer Phone Number");
-				Assert.inputText(driver, BuyerFirstName, Excel_Handling.Get_Data(TC_ID, "BuyerFirstName"), "Buyer First Name");
-				Assert.inputText(driver, BuyerLastName, Excel_Handling.Get_Data(TC_ID, "BuyerLastName"), "Buyer Last Name");
-				//Assert.inputText(driver, Order_Id, Excel_Handling.Get_Data(TC_ID, "Order_Id"), "Order_Id");			
-				String  string = RandomStringUtils.randomAlphabetic(8);		
-				System.out.println("Random 1 = " + string);				
-				Assert.inputText(driver, Order_Id, string, "Order_Id");
-				GetOrderID = driver.findElement(By.xpath(Order_Id)).getAttribute("value");
-				Assert.inputText(driver, Amount, Excel_Handling.Get_Data(TC_ID, "Amount"), "Amount");
-				//Assert.inputText(driver, Order_Id, Excel_Handling.Get_Data(TC_ID, "Order_Id"), "Order_Id");				Assert.inputText(driver, Amount, Excel_Handling.Get_Data(TC_ID, "Amount"), "Amount");
-				Extent_Reporting.Log_report_img("Local Host page required field filled", "Passed", driver);
-				Assert.Clickbtn(driver, payHerebtn, "Pay Here");
+				
+				
+				MobileElement el2 = (MobileElement) driver.findElementByXPath(BuyerFirstName);
+				Thread.sleep(1000);
+				el2.sendKeys(Excel_Handling.Get_Data(TC_ID, "BuyerFirstName"));
+				MobileElement el3 = (MobileElement) driver.findElementByXPath(BuyerLastName);
+				Thread.sleep(1000);
+				el3.sendKeys(Excel_Handling.Get_Data(TC_ID, "BuyerLastName"));
+				driver.findElementById(BuyerMailId).sendKeys(Excel_Handling.Get_Data(TC_ID, "BuyerMailID"));
+				driver.findElementById(BuyerPhoneNumber).sendKeys(Excel_Handling.Get_Data(TC_ID, "BuyerPhoneNumber"));
+				//MobileElement el4 = (MobileElement) 
+				//el4.sendKeys("8080326836");
+				/*
+				driver.findElementById("com.example.sampleairpay_upi:id/img_down").click();
+				driver.findElementById(BuyerPinCode).sendKeys(Excel_Handling.Get_Data(TC_ID, "Pin_Code"));
+				*/
+				
+				String string = RandomStringUtils.randomAlphabetic(8);
+				
+				driver.findElementById(Order_Id).sendKeys(string);
+				driver.findElementById(Amount).sendKeys(Excel_Handling.Get_Data(TC_ID, "Amount"));
+				driver.findElementById(payHerebtn).click();
+				driver.manage().timeouts().implicitlyWait(80, TimeUnit.SECONDS);
+				Thread.sleep(9000);
+				Set<String> contextNames = driver.getContextHandles(); 
+				  for (String contextName : contextNames)
+				  { 
+					  System.out.println(contextName); 
+				  //prints out something like NATIVE_APP \n WEBVIEW_1 
+				  } 
+				  driver.manage().timeouts().implicitlyWait(80, TimeUnit.SECONDS);
+				  driver.context("WEBVIEW_com.example.sampleairpay_upi");
+				          
+				String errVerfiy = driver.findElement(By.xpath("//span[@class='alert alert-error']")).getText();
+				if(errVerfiy.contains("Either email or contact number is mandatory") || errVerfiy.contains("Invalid Order Id") ||errVerfiy.contains("Invalid Contact No") ||errVerfiy.contains("Wrong Checksum")
+						||errVerfiy.contains("Invalid Email Id") ||errVerfiy.contains("Invalid Amount")|| errVerfiy.contains("Transaction Update Failed - Merchant Transaction Id not valid")
+						|| errVerfiy.contains("Invalid First Name")||errVerfiy.contains("Invalid Last Name")||errVerfiy.contains("Invalid Pincode")
+						||errVerfiy.contains("Oops! An error occurred while completing your request. Our engineers have been notified and are working towards resolving it as soon as possible."))
+				{  
+					Extent_Reporting.Log_report_img("Respective error is exist ", "Passed", driver);
+					Extent_Reporting.Log_Pass("Respective error is exist as :"+errVerfiy, "Passed");           	
+				}else{ 
+					Extent_Reporting.Log_Fail("Respective error does not exist :"+errVerfiy, "Might be provided valid data", driver);
+					throw new Exception("error verification");
+				}
 				Assert.waitForPageToLoad(driver);
 			}
+			  
 			else{
 				Extent_Reporting.Log_Fail("Local Host page not exist ", "Local Host page not displayed", driver);   
 				Log.error("Local Host page not successfully displayed");
 				//throw new Exception(" Test failed due to local host page not displayed");
-			}}
+			}
 		}                     
 		catch(Exception e)	
 		{
@@ -91,8 +120,8 @@ public class AirPay_PaymentPage_BusinessLogic extends Airpay_PaymentPage_PageObj
 			e.printStackTrace();
 			//throw new Exception("Test failed due to local host page not displayed");
 		}
+	
 	}
-
 
 	public void LocalHostDetailPage_Merchant_Wallet() throws Exception {
 		try{ 
@@ -138,24 +167,46 @@ public class AirPay_PaymentPage_BusinessLogic extends Airpay_PaymentPage_PageObj
 	 */
 	public void LocalHostDetailPage(String AmountVal) throws Exception {
 		try{ 
-			Log.info("Navigating To Local Host page of Payment");	   
-			if(Assert.isElementDisplay(driver, BuyerMailId))
+			Log.info("Navigating To Local Host page of Payment");
+			driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+			MobileElement mobile_id = (MobileElement)driver.findElementByXPath(BuyerFirstName);
+			boolean isDisplayed = mobile_id.isDisplayed();
+
+			if(isDisplayed)
 			{ 
 				Log.debug("Local Host page");
-				Assert.inputText(driver, BuyerMailId, Excel_Handling.Get_Data(TC_ID, "BuyerMailID"), "Buyer Mail ID");
-				Assert.inputText(driver, BuyerPhoneNumber, Excel_Handling.Get_Data(TC_ID, "BuyerPhoneNumber"), "Buyer Phone Number");
-				Assert.inputText(driver, BuyerFirstName, Excel_Handling.Get_Data(TC_ID, "BuyerFirstName"), "Buyer First Name");
-				Assert.inputText(driver, BuyerLastName, Excel_Handling.Get_Data(TC_ID, "BuyerLastName"), "Buyer Last Name");
-				//Assert.inputText(driver, Order_Id, Excel_Handling.Get_Data(TC_ID, "Order_Id"), "Order_Id");			
-				String  string = RandomStringUtils.randomAlphabetic(8);		
-				System.out.println("Random 1 = " + string);				
-				Assert.inputText(driver, Order_Id, string, "Order_Id");
-				GetOrderID = driver.findElement(By.xpath(Order_Id)).getAttribute("value");
-				Assert.inputText(driver, Amount, AmountVal, "Amount");
-				//Assert.inputText(driver, Order_Id, Excel_Handling.Get_Data(TC_ID, "Order_Id"), "Order_Id");				Assert.inputText(driver, Amount, Excel_Handling.Get_Data(TC_ID, "Amount"), "Amount");
+				
+				
+				MobileElement el2 = (MobileElement) driver.findElementByXPath(BuyerFirstName);
+				Thread.sleep(8000);
+				el2.sendKeys(Excel_Handling.Get_Data(TC_ID, "BuyerFirstName"));
+				MobileElement el3 = (MobileElement) driver.findElementByXPath(BuyerLastName);
+				Thread.sleep(1000);
+				el3.sendKeys(Excel_Handling.Get_Data(TC_ID, "BuyerLastName"));
+				driver.findElementById(BuyerMailId).sendKeys(Excel_Handling.Get_Data(TC_ID, "BuyerMailID"));
+				driver.findElementById(BuyerPhoneNumber).sendKeys(Excel_Handling.Get_Data(TC_ID, "BuyerPhoneNumber"));
+				//MobileElement el4 = (MobileElement) 
+				//el4.sendKeys("8080326836");
+				driver.findElementById("com.example.sampleairpay_upi:id/img_down").click();
+				driver.findElementById(BuyerPinCode).sendKeys(Excel_Handling.Get_Data(TC_ID, "Pin_Code"));
+				String string = RandomStringUtils.randomAlphabetic(8);
+				
+				driver.findElementById(Order_Id).sendKeys(string);
+				driver.findElementById(Amount).sendKeys(Excel_Handling.Get_Data(TC_ID, "Amount"));
 				Extent_Reporting.Log_report_img("Local Host page required field filled", "Passed", driver);
-				Assert.Clickbtn(driver, payHerebtn, "Pay Here");
-				Assert.waitForPageToLoad(driver);
+				driver.findElementById(payHerebtn).click();
+				
+				driver.manage().timeouts().implicitlyWait(80, TimeUnit.SECONDS);
+				Thread.sleep(9000);
+				Set<String> contextNames = driver.getContextHandles(); 
+				  for (String contextName : contextNames)
+				  { 
+					  System.out.println(contextName); 
+				  //prints out something like NATIVE_APP \n WEBVIEW_1 
+				  } 
+				  driver.manage().timeouts().implicitlyWait(80, TimeUnit.SECONDS);
+				  driver.context("WEBVIEW_com.example.sampleairpay_upi");
+					
 			}
 			else{
 				Extent_Reporting.Log_Fail("Local Host page not exist ", "Local Host page not displayed", driver);   
@@ -387,36 +438,51 @@ public class AirPay_PaymentPage_BusinessLogic extends Airpay_PaymentPage_PageObj
 	public void LocalHostDetailPage_ErrorVerify() throws Exception {
 		try{ 
 			Log.info("Navigating To Local Host page of Payment");
-			  if(Assert.isElementDisplay(driver, name))
-			  {
-			   Assert.inputText(driver, email, Excel_Handling.Get_Data(TC_ID, "BuyerMailID"), "Buyer Mail ID");
-			   Assert.inputText(driver, phone, Excel_Handling.Get_Data(TC_ID, "BuyerPhoneNumber"), "Buyer Phone Number");
-			   Assert.inputText(driver, name, Excel_Handling.Get_Data(TC_ID, "BuyerFirstName"), "Buyer First Name");
-			   Assert.inputText(driver, amount, Excel_Handling.Get_Data(TC_ID, "Amount"), "Amount");
-			   Extent_Reporting.Log_report_img("Directpayments required field filled", "Passed", driver);
-			   Assert.Clickbtn(driver, paybutton, "Pay Here");
-			   Assert.waitForPageToLoad(driver);
-			  
-			  }else {
-			if(Assert.isElementDisplay(driver, BuyerMailId))
+			driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+			MobileElement mobile_id = (MobileElement)driver.findElementByXPath(BuyerFirstName);
+			boolean isDisplayed = mobile_id.isDisplayed();
+
+			if(isDisplayed)
 			{ 
 				Log.debug("Local Host page");
-				Assert.inputText(driver, BuyerMailId, Excel_Handling.Get_Data(TC_ID, "BuyerMailID"), "Buyer Mail ID");
-				Assert.inputText(driver, BuyerPhoneNumber, Excel_Handling.Get_Data(TC_ID, "BuyerPhoneNumber"), "Buyer Phone Number");		
-				String  string = RandomStringUtils.randomAlphabetic(8);		
-				System.out.println("Random 1 = " + string);				
-				Assert.inputText(driver, Order_Id, string, "Order_Id");
-				//Assert.inputText(driver, Order_Id, Excel_Handling.Get_Data(TC_ID, "Order_Id"), "Order_Id");
-				Assert.inputText(driver, Amount, Excel_Handling.Get_Data(TC_ID, "Amount"), "Amount");
-				Extent_Reporting.Log_report_img("Local Host page required field filled", "Passed", driver);
-				Assert.Clickbtn(driver, payHerebtn, "Pay Here");
-				Assert.waitForPageToLoad(driver);
+				
+				
+				MobileElement el2 = (MobileElement) driver.findElementByXPath(BuyerFirstName);
+				Thread.sleep(1000);
+				el2.sendKeys(Excel_Handling.Get_Data(TC_ID, "BuyerFirstName"));
+				MobileElement el3 = (MobileElement) driver.findElementByXPath(BuyerLastName);
+				Thread.sleep(1000);
+				el3.sendKeys(Excel_Handling.Get_Data(TC_ID, "BuyerLastName"));
+				driver.findElementById(BuyerMailId).sendKeys(Excel_Handling.Get_Data(TC_ID, "BuyerMailID"));
+				driver.findElementById(BuyerPhoneNumber).sendKeys(Excel_Handling.Get_Data(TC_ID, "BuyerPhoneNumber"));
+				//MobileElement el4 = (MobileElement) 
+				//el4.sendKeys("8080326836");
+				/*
+				driver.findElementById("com.example.sampleairpay_upi:id/img_down").click();
+				driver.findElementById(BuyerPinCode).sendKeys(Excel_Handling.Get_Data(TC_ID, "Pin_Code"));
+				*/
+				
+				String string = RandomStringUtils.randomAlphabetic(8);
+				
+				driver.findElementById(Order_Id).sendKeys(string);
+				driver.findElementById(Amount).sendKeys(Excel_Handling.Get_Data(TC_ID, "Amount"));
+				driver.findElementById(payHerebtn).click();
+				driver.manage().timeouts().implicitlyWait(80, TimeUnit.SECONDS);
+				Thread.sleep(9000);
+				Set<String> contextNames = driver.getContextHandles(); 
+				  for (String contextName : contextNames)
+				  { 
+					  System.out.println(contextName); 
+				  //prints out something like NATIVE_APP \n WEBVIEW_1 
+				  } 
+				  driver.manage().timeouts().implicitlyWait(80, TimeUnit.SECONDS);
+				  driver.context("WEBVIEW_com.example.sampleairpay_upi");
 			}
 			else{
 				Extent_Reporting.Log_Fail("Local Host page not exist ", "Local Host page not displayed", driver);   
 				Log.error("Local Host page not successfully displayed");
 				//throw new Exception(" Test failed due to local host page not displayed");
-			}}
+			}
 		}                     
 		catch(Exception e)	
 		{
@@ -455,7 +521,16 @@ public class AirPay_PaymentPage_BusinessLogic extends Airpay_PaymentPage_PageObj
 					JavascriptExecutor js = (JavascriptExecutor)driver;					
 					js.executeScript("arguments[0].click();", e);*/
 					//Assert.Javascriptexecutor_forClick(driver, ChannelsName, "");
-					ChannelsName.click();
+					if(Assert.isElementDisplayed(driver, PageView,"Click on channel"))
+					{
+						JavascriptExecutor js = (JavascriptExecutor)driver;
+						js.executeScript("arguments[0].click();", ChannelsName);
+					}
+					else
+					{
+						ChannelsName.click();
+					}
+					
 					Extent_Reporting.Log_report_img(" payment mode option choosen as: "+name, "Passed", driver);
 					flag = false;
 					break;					
@@ -1059,9 +1134,11 @@ public class AirPay_PaymentPage_BusinessLogic extends Airpay_PaymentPage_PageObj
 	public void NavigateToLocalHostPage() throws Exception {
 		try{ 
 			Log.info("Navigating To Net BankingPage");	
-			Assert.waitForPageToLoad(driver);
-			driver.get(Excel_Handling.Get_Data(TC_ID, "PaymentPage_URL").trim());
-			Assert.waitForPageToLoad(driver);
+			Driver_Setup setup = new Driver_Setup();
+			setup.initmobile("appURL");
+			//Assert.waitForPageToLoad(driver);
+			//driver.get(Excel_Handling.Get_Data(TC_ID, "PaymentPage_URL").trim());
+			//Assert.waitForPageToLoad(driver);
 			LocalHostDetailPage();	
 			Card_Details_Options();
 		}catch(Exception e){

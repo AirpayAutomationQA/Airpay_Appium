@@ -8,12 +8,18 @@
 <fullyQualifiedTypeName name="org.openqa.selenium.remote.CapabilityType"/>
 <fullyQualifiedTypeName name="com.gargoylesoftware.htmlunit.javascript.host.Map"/>
 <fullyQualifiedTypeName name="java.util.Map"/>
-<fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="org.openqa.selenium.chrome.ChromeOptions"/>
-<fullyQualifiedTypeName name="java.lang.Thread"/>
 <fullyQualifiedTypeName name="java.util.Set"/>
 <fullyQualifiedTypeName name="com.Airpay.PageObject.Airpay_PaymentPage_PageObject"/>
 <fullyQualifiedTypeName name="com.Airpay.Utilities.ElementAction"/>
-<fullyQualifiedTypeName name="io.appium.java_client.AppiumDriver"/>
 <fullyQualifiedTypeName name="io.appium.java_client.MobileElement"/>
+<fullyQualifiedTypeName name="java.lang.Thread"/>
+<fullyQualifiedTypeName name="org.openqa.selenium.interactions.touch.TouchActions"/>
+<fullyQualifiedTypeName name="io.appium.java_client.TouchAction"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="org.openqa.selenium.support.ui.WebDriverWait"/>
+<fullyQualifiedTypeName name="org.openqa.selenium.support.ui.ExpectedConditions"/>
+<fullyQualifiedTypeName name="java.awt.Dimension"/>
+<fullyQualifiedTypeName name="org.openqa.selenium.Dimension"/>
+<fullyQualifiedTypeName name="io.appium.java_client.AppiumDriver"/>
 </qualifiedTypeNameHistroy>

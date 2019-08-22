@@ -57,9 +57,9 @@ function toggleAllBoxes() {
 <tr>
 <td>Tests passed/Failed/Skipped:</td><td>2/0/0</td>
 </tr><tr>
-<td>Started on:</td><td>Tue Aug 13 18:31:20 IST 2019</td>
+<td>Started on:</td><td>Tue Aug 20 15:33:40 IST 2019</td>
 </tr>
-<tr><td>Total time:</td><td>128 seconds (128022 ms)</td>
+<tr><td>Total time:</td><td>187 seconds (187831 ms)</td>
 </tr><tr>
 <td>Included groups:</td><td></td>
 </tr><tr>
@@ -76,12 +76,14 @@ function toggleAllBoxes() {
 </tr>
 <tr>
 <td title='com.Airpay.Tests.TC_PP_01.tearDown()'><b>tearDown</b><br>Test class: com.Airpay.Tests.TC_PP_01</td>
-<td><div><pre>org.openqa.selenium.UnsupportedCommandException: Method has not yet been implemented
+<td><div><pre>org.openqa.selenium.WebDriverException: An unknown server-side error occurred while processing the command. Original error: unknown error: failed to close window in 20 seconds
+  (Session info: chrome=72.0.3626.121)
+  (Driver info: chromedriver=2.46.628402 (536cd7adbad73a3783fdc2cab92ab2ba7ec361e1),platform=Windows NT 10.0.18362 x86_64)
 Build info: version: &apos;3.141.59&apos;, revision: &apos;e82be7d358&apos;, time: &apos;2018-11-14T08:17:03&apos;
 System info: host: &apos;DESKTOP-1HEU4UN&apos;, ip: &apos;192.168.1.136&apos;, os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;1.8.0_181&apos;
 Driver info: io.appium.java_client.android.AndroidDriver
 Capabilities {app: C:\Users\swapnil.pawar\ecli..., appActivity: com.example.sampleairpay_up..., appPackage: com.example.sampleairpay_upi, browserName: , databaseEnabled: false, desired: {app: C:\Users\swapnil.pawar\ecli..., appActivity: com.example.sampleairpay_up..., appPackage: com.example.sampleairpay_upi, browserName: , deviceName: Redmi, platformName: android, platformVersion: 9, udid: 594daa44}, deviceManufacturer: Xiaomi, deviceModel: Redmi Note 5 Pro, deviceName: 594daa44, deviceScreenSize: 1080x2160, deviceUDID: 594daa44, javascriptEnabled: true, locationContextEnabled: false, networkConnectionEnabled: true, platform: LINUX, platformName: Android, platformVersion: 9, takesScreenshot: true, udid: 594daa44, warnings: {}, webStorageEnabled: false}
-Session ID: 659a8df5-d19f-46c4-9e0f-592241c83857
+Session ID: a013f8de-5dcb-4db4-a0f2-9eea6164a76b
 	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:187)
 	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:122)
 	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
@@ -92,15 +94,17 @@ Session ID: 659a8df5-d19f-46c4-9e0f-592241c83857
 	at io.appium.java_client.AppiumDriver.execute(AppiumDriver.java:1)
 	at io.appium.java_client.android.AndroidDriver.execute(AndroidDriver.java:1)
 	at org.openqa.selenium.remote.RemoteWebDriver.close(RemoteWebDriver.java:442)
-	at com.Airpay.Tests.TC_PP_01.tearDown(TC_PP_01.java:43)
+	at com.Airpay.Tests.TC_PP_01.tearDown(TC_PP_01.java:39)
 	at com.Airpay.Utilities.Create_TestNGXML.createXMLfile(Create_TestNGXML.java:141)
-... Removed 50 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace503144273", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace503144273'><pre>org.openqa.selenium.UnsupportedCommandException: Method has not yet been implemented
+... Removed 50 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace889928215", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace889928215'><pre>org.openqa.selenium.WebDriverException: An unknown server-side error occurred while processing the command. Original error: unknown error: failed to close window in 20 seconds
+  (Session info: chrome=72.0.3626.121)
+  (Driver info: chromedriver=2.46.628402 (536cd7adbad73a3783fdc2cab92ab2ba7ec361e1),platform=Windows NT 10.0.18362 x86_64)
 Build info: version: &apos;3.141.59&apos;, revision: &apos;e82be7d358&apos;, time: &apos;2018-11-14T08:17:03&apos;
 System info: host: &apos;DESKTOP-1HEU4UN&apos;, ip: &apos;192.168.1.136&apos;, os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;1.8.0_181&apos;
 Driver info: io.appium.java_client.android.AndroidDriver
 Capabilities {app: C:\Users\swapnil.pawar\ecli..., appActivity: com.example.sampleairpay_up..., appPackage: com.example.sampleairpay_upi, browserName: , databaseEnabled: false, desired: {app: C:\Users\swapnil.pawar\ecli..., appActivity: com.example.sampleairpay_up..., appPackage: com.example.sampleairpay_upi, browserName: , deviceName: Redmi, platformName: android, platformVersion: 9, udid: 594daa44}, deviceManufacturer: Xiaomi, deviceModel: Redmi Note 5 Pro, deviceName: 594daa44, deviceScreenSize: 1080x2160, deviceUDID: 594daa44, javascriptEnabled: true, locationContextEnabled: false, networkConnectionEnabled: true, platform: LINUX, platformName: Android, platformVersion: 9, takesScreenshot: true, udid: 594daa44, warnings: {}, webStorageEnabled: false}
-Session ID: 659a8df5-d19f-46c4-9e0f-592241c83857
+Session ID: a013f8de-5dcb-4db4-a0f2-9eea6164a76b
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
 	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
@@ -115,7 +119,7 @@ Session ID: 659a8df5-d19f-46c4-9e0f-592241c83857
 	at io.appium.java_client.AppiumDriver.execute(AppiumDriver.java:1)
 	at io.appium.java_client.android.AndroidDriver.execute(AndroidDriver.java:1)
 	at org.openqa.selenium.remote.RemoteWebDriver.close(RemoteWebDriver.java:442)
-	at com.Airpay.Tests.TC_PP_01.tearDown(TC_PP_01.java:43)
+	at com.Airpay.Tests.TC_PP_01.tearDown(TC_PP_01.java:39)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
@@ -164,8 +168,8 @@ Session ID: 659a8df5-d19f-46c4-9e0f-592241c83857
 	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
 </pre></div></td>
-<td>0</td>
-<td>com.Airpay.Tests.TC_PP_01@19b93fa8</td></tr>
+<td>20</td>
+<td>com.Airpay.Tests.TC_PP_01@2a62b5bc</td></tr>
 </table><p>
 <table width='100%' border='1' class='invocation-passed'>
 <tr><td colspan='4' align='center'><b>PASSED TESTS</b></td></tr>
@@ -177,13 +181,13 @@ Session ID: 659a8df5-d19f-46c4-9e0f-592241c83857
 <tr>
 <td title='com.Airpay.Tests.TC_PP_01.TC_TestCaseName()'><b>TC_TestCaseName</b><br>Test class: com.Airpay.Tests.TC_PP_01</td>
 <td></td>
-<td>92</td>
-<td>com.Airpay.Tests.TC_PP_01@19b93fa8</td></tr>
+<td>135</td>
+<td>com.Airpay.Tests.TC_PP_01@2a62b5bc</td></tr>
 <tr>
 <td title='com.Airpay.Tests.TC_PP_01.setup()'><b>setup</b><br>Test class: com.Airpay.Tests.TC_PP_01</td>
 <td></td>
 <td>0</td>
-<td>com.Airpay.Tests.TC_PP_01@19b93fa8</td></tr>
+<td>com.Airpay.Tests.TC_PP_01@2a62b5bc</td></tr>
 </table><p>
 </body>
 </html>

@@ -6,15 +6,10 @@ import org.testng.annotations.Test;
 
 import com.Airpay.BusinessLogic.AirPay_Payment_Mode_CreditCard_BusinessLogic;
 import com.Airpay.InitialSetup.Driver_Setup;
-import com.Airpay.Reporting.Extent_Reporting;
 import com.Airpay.Utilities.Log;
 
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
-
 public class TC_PP_01 extends Driver_Setup{
-	public static AppiumDriver<MobileElement> webDriver = null;
-	
+	public static WebDriver webDriver = null;
 	public static String tcID = null;	
 	//Business Logic Class Object list	
 	@Test(priority=1)
@@ -30,9 +25,7 @@ public class TC_PP_01 extends Driver_Setup{
 		try {
 			Log.info("Script Starts..");
 			AirPay_Payment_Mode_CreditCard_BusinessLogic AirPay_Local = new AirPay_Payment_Mode_CreditCard_BusinessLogic(driver, TC_ID);
-				AirPay_Local.LocalHost_Page_ValidationWithoutOrderGenerate();		
-			Extent_Reporting.Log_report_img("Respective error is exist ", "Passed", driver);
-			Extent_Reporting.Log_Pass("Respective error is exist as :", "Passed");  
+				AirPay_Local.LocalHost_Page_ValidationWithoutOrderGenerate();					
 			Log.info("Scripts Ends....");
 		} catch (Exception e) {
 			Log.error(e.getMessage());

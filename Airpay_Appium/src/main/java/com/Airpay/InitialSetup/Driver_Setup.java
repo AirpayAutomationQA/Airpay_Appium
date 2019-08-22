@@ -97,7 +97,7 @@ public class Driver_Setup {
 	 * driver.navigate().to(appURL); return driver; }
 	 */
 	public AppiumDriver<MobileElement> initmobile(String appURL) throws InterruptedException, MalformedURLException {
-		System.out.println("Launching google chrome driver!!! .");
+		System.out.println("Launching appium driver!!! .");
 		File classpathRoot = new File(System.getProperty("user.dir"));
 		File appDir = new File(classpathRoot, "/App/");
 		File app = new File(appDir, "Airpay Demo_com.example.sampleairpay_upi.apk");
@@ -108,6 +108,10 @@ public class Driver_Setup {
 		capabilities.setCapability("udid", "594daa44");
 		capabilities.setCapability("platformVersion", "9");
 		capabilities.setCapability("platformName", "Android");
+	
+		capabilities.setCapability("nativeWebScreenshot", true);
+		capabilities.setCapability("newCommandTimeout", 100);
+		//capabilities.setCapability("automationName", "UiAutomator2");
 		capabilities.setCapability("app", app.getAbsolutePath());
 		capabilities.setCapability("appPackage", "com.example.sampleairpay_upi");
 		capabilities.setCapability("appActivity", "com.example.sampleairpay_upi.Splashscreen");

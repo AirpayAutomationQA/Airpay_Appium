@@ -83,8 +83,8 @@ try{
                         snappath = Constants.snapshotsPath+name;
 
         }catch(Exception e){
-                        
-                        System.out.println("Issue with snapshot capture");
+                        System.out.println(e);
+                        //System.out.println("Issue with snapshot capture");
                         
         }
         return snappath;

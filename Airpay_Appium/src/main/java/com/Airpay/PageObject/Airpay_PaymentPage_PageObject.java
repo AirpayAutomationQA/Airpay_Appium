@@ -1,16 +1,19 @@
 package com.Airpay.PageObject;
 
 public class Airpay_PaymentPage_PageObject {
-	
-	//*************************Local Host page locators *******************************************************
-		public static final  String  BuyerMailId = "//input[@id='buyerEmail']";
-		public static final  String  BuyerPhoneNumber = "//input[@id='buyerPhone']";
-		public static final  String  BuyerFirstName = "//input[@id='buyerFirstName']";
-		public static final  String  BuyerLastName = "//input[@id='buyerLastName']";
-		public static final  String  BuyerPinCode = "//input[@id='buyerPinCode']";	
-		public static final  String  Order_Id = "//input[@id='orderid']";
-		public static final  String  Amount = "//input[@id='amount']";
-		public static final  String  payHerebtn= "//button[@type='submit']";
+	public static final String PageView = "//*[contains(@class,'mobile kit-')]";
+	public static final String CC ="//*[@class='menu-link' and @data-tab-id='credit']";
+	//*************************Local Host page locators appium *******************************************************
+		public static final  String  BuyerMailId = "com.example.sampleairpay_upi:id/emailId";
+		public static final  String  BuyerPhoneNumber = "com.example.sampleairpay_upi:id/phone_et";
+		public static final  String  BuyerFirstName = "//android.widget.EditText[contains(@resource-id,'firstName_et')]";
+		//*[@class='android.widget.EditText' and @bounds='[56,290][529,414]']
+		//xpath("//android.widget.Button[contains(@resource-id,'digit5')]")
+		public static final  String  BuyerLastName = "//android.widget.EditText[contains(@resource-id,'lastName_et')]";
+		public static final  String  BuyerPinCode = "com.example.sampleairpay_upi:id/pincode_et";	
+		public static final  String  Order_Id = "com.example.sampleairpay_upi:id/orderId_et";
+		public static final  String  Amount = "com.example.sampleairpay_upi:id/amount_et";
+		public static final  String  payHerebtn= "com.example.sampleairpay_upi:id/nextButton";
 		
 	//*************************Local Host Directpay *******************************************************
 		public static final  String  name = "//input[contains(@class, 'user-name')]";
